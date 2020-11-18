@@ -1,0 +1,133 @@
+import javax.microedition.lcdui.*;
+import javax.microedition.midlet.*;
+import java.io.*;
+
+public class AI extends MIDlet
+{
+	Display display;
+	MainCanvas mc;
+	public AI(){
+		display=Display.getDisplay(this);
+		mc=new MainCanvas();
+		display.setCurrent(mc);
+	}
+	public void startApp(){
+	}
+	public void destroyApp(boolean unc){
+	}
+	public void pauseApp(){
+	}
+}
+class MainCanvas extends Canvas
+{
+	int x,y;
+	Image LeftImg,RightImg,DownImg,UpImg,currentImg,LeftImg0,LeftImg1,RightImg0,RightImg1,DownImg0,DownImg1,UpImg0,UpImg1;
+
+	public MainCanvas(){
+		try
+		{
+			LeftImg = Image.createImage("/sayo12.png");
+			RightImg= Image.createImage("/sayo16.png");
+			DownImg = Image.createImage("/sayo10.png");
+			UpImg   = Image.createImage("/sayo14.png");
+			LeftImg0= Image.createImage("/sayo22.png");
+			LeftImg1= Image.createImage("/sayo02.png");
+			RightImg0= Image.createImage("/sayo06.png");
+			RightImg1= Image.createImage("/sayo26.png");
+			DownImg0 = Image.createImage("/sayo20.png");
+			DownImg1 = Image.createImage("/sayo00.png");
+			UpImg0   = Image.createImage("/sayo04.png");
+			UpImg1   = Image.createImage("/sayo24.png");
+			currentImg =DownImg;
+			x=120;
+			y=120;
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	public void paint(Graphics g){
+		g.setColor(0,0,0);
+		g.fillRect(0,0,getWidth(),getHeight());
+		g.drawImage(currentImg,x,y,0);
+	}
+	public void keyPressed(int keyCode){
+		int action = getGameAction(keyCode);
+		if(action == LEFT){
+
+			if(x%2==0)
+			{
+				currentImg=LeftImg; 
+				System.out.println("1");	
+				currentImg=LeftImg1;
+				System.out.println("2");
+				x=x-1;	
+			}
+			else
+			{
+			   currentImg=LeftImg0;
+			   System.out.println("3");
+		    	x=x-1;
+			}
+
+		}
+		else if(action ==RIGHT){
+			if(x%2==0)
+			{
+				currentImg=RightImg; 
+				System.out.println("1");	
+				currentImg=RightImg1;
+				System.out.println("2");
+				x=x+1;	
+			}
+			else
+			{
+
+			   currentImg=RightImg0;
+			   System.out.println("3");
+		    	x=x+1;
+			}
+
+			}
+			else if(action == DOWN){
+			if(y%2==0)
+			{
+				currentImg=DownImg; 
+				System.out.println("1");	
+				currentImg=DownImg1;
+				System.out.println("2");
+				y=y+1;	
+			}
+			else
+			{
+
+			   currentImg=DownImg0;
+			   System.out.println("3");
+		    	y=y+1;
+			}
+		 }	
+		else if(action ==UP){
+				if(y%2==0)
+			{
+				currentImg=UpImg; 
+				System.out.println("1");	
+				currentImg=UpImg0;
+				System.out.println("2");
+				y=y-1;	
+			}
+			else
+			{
+
+			   currentImg=UpImg1;
+			   System.out.println("3");
+		    	y=y-1;
+			}
+
+		}
+		
+		else {
+	        currentImg =DownImg;}
+		repaint();
+	}
+}
